@@ -1,0 +1,37 @@
+{
+  "name": "gulp-terser-js",
+  "version": "4.0.1",
+  "description": "A Terser-js plugin for Gulp",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/A-312/gulp-terser-js.git"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "keywords": [
+    "gulpplugin",
+    "gulp",
+    "terser"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "terser": "^3.14.0",
+    "object-assign": "^4.0.1",
+    "plugin-error": "^0.1.2",
+    "through2": "^2.0.0",
+    "vinyl-sourcemaps-apply": "^0.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/A-312/gulp-terser-js/issues"
+  },
+  "homepage": "https://github.com/A-312/gulp-terser-js#readme",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "a-312"
+}
