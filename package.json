@@ -1,6 +1,6 @@
 {
   "name": "gulp-terser-js",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "A Terser-js plugin for Gulp",
   "main": "index.js",
   "repository": {
