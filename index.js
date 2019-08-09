@@ -1,5 +1,3 @@
-"use strict";
-
 const through2 = require("through2"),
       assign = require("object-assign"),
       PluginError = require("plugin-error"),
