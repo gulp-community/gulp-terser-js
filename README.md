@@ -14,33 +14,9 @@ Source:[Why choose terser?](https://github.com/terser-js/terser/blob/master/READ
 
 ## Why choose `gulp-terser-js`
 
-This plugins display formatted error:
+This plugin displays formatted error:
 
 ![error screenshot](https://i.imgur.com/eZUpLmB.png)
-
-## Information
-
-<table>
-<tr>
-<td>Package</td><td>gulp-terser-js</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>Terser-js plugin for gulp</td>
-</tr>
-<tr>
-<td>Node Version</td>
-<td>Recommanded >= 8.0.0</td>
-</tr>
-<tr>
-<td>Terser Version</td>
-<td>Recommanded v3.14+</td>
-</tr>
-<tr>
-<td>Gulp Version</td>
-<td>3.x</td>
-</tr>
-</table>
 
 ## Installation
 
@@ -124,3 +100,11 @@ function printLESSError(error) {
   this.emit('end')
 }
 ```
+
+## Version
+
+| Description    | gulp-terser-js |
+| -------------- | -------------- |
+| Node Version   | >= 8.10.0      |
+| Terser Version | 4.1.4+         |
+| Gulp Version   | >= 4.X         |

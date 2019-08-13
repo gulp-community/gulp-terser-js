@@ -1,0 +1,13 @@
+root: true
+extends: standard
+rules:
+  no-param-reassign: error
+  no-shadow: error
+  space-before-function-paren:
+    - error
+    - anonymous: never
+      named: never
+      asyncArrow: always
+  no-multiple-empty-lines:
+    - error
+    - { "max": 2 }

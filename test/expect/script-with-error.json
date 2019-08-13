@@ -1,0 +1,7 @@
+[
+  "\nError with gulp-terser :",
+  "\u001b[36m1 |\u001b[00m function main() {",
+  "\u001b[36m2 |\u001b[00m   &&&&&&&&&();",
+  "      \u001b[91m^\u001b[00m",
+  "(SyntaxError) Unexpected token: operator (&&) (line : \u001b[96m2\u001b[00m, col : \u001b[96m3\u001b[00m)."
+]
