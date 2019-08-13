@@ -80,8 +80,9 @@ describe('gulp-terser-js(1)', function() {
           assert.strictEqual(error.message, 'Unexpected token: operator (&&)', 'is the expected error')
           const expect = JSON.parse(get('expect/script-with-error.json'))
           // if you want check the current log use :
-          // console.log(JSON.stringify(logstore))
-          assert.strictEqual(logstore.join(''), expect.join(''), 'is the expected error')
+          // console.log(JSON.stringify(logstore, 0, 4))
+          // console.log(JSON.stringify(expect, 0, 4))
+          assert.strictEqual(logstore.slice(0, -1).join(''), expect.join(''), 'is the expected error')
           done()
         })
       })

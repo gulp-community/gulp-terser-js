@@ -2,6 +2,7 @@ const through2 = require('through2')
 const assign = require('object-assign')
 const PluginError = require('plugin-error')
 const applySourceMap = require('vinyl-sourcemaps-apply')
+const os = require('os')
 
 const terser = require('terser')
 
@@ -64,10 +65,10 @@ function printError(error) {
   }
 
   const fileContent = error.fileContent
-  const lines = fileContent.replace(/\t/g, '    ').split('\n')
+  const lines = fileContent.replace(/\t/g, '    ').split(os.EOL)
   const more = (error.line + ' ').length
   const col = error.col + 1
-  const pos = (more + 2) + fileContent.split('\n')[error.line - 1].replace(/[^\t]/g, '').length * 3 + parseInt(col)
+  const pos = (more + 2) + fileContent.split(os.EOL)[error.line - 1].replace(/[^\t]/g, '').length * 3 + parseInt(col)
 
   console.log(`\nError with ${error.plugin} :`)
   for (let i = error.line - 5; i < error.line; i++) {
