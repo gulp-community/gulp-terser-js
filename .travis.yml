@@ -4,7 +4,6 @@ node_js:
   - "8.15"
   - "9.11"
   - "lts/*"
-  - "stable"
 matrix:
   fast_finish: true
 sudo: false
