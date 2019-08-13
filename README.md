@@ -14,7 +14,7 @@ Source:[Why choose terser?](https://github.com/terser-js/terser/blob/master/READ
 
 ## Why choose `gulp-terser-js`
 
-This plugins display formatted error:
+This plugin displays formatted error:
 
 ![error screenshot](https://i.imgur.com/eZUpLmB.png)
 
