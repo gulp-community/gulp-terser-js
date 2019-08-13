@@ -3,35 +3,47 @@
   "version": "4.1.1",
   "description": "A Terser-js plugin for Gulp",
   "main": "bin/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha --reporter spec --bail --check-leaks test/",
+    "test-ci": "mocha --reporter spec --check-leaks test/",
+    "coverage": "nyc mocha --reporter spec && nyc report --reporter=text-lcov | coveralls"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/A-312/gulp-terser-js.git"
   },
-  "engines": {
-    "node": ">=0.10.0"
-  },
+  "files": [
+    "bin/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "author": "A-312",
   "keywords": [
     "gulpplugin",
     "gulp",
     "terser"
   ],
   "license": "MIT",
-  "dependencies": {
-    "terser": "^3.14.0",
-    "object-assign": "^4.0.1",
-    "plugin-error": "^0.1.2",
-    "through2": "^2.0.0",
-    "vinyl-sourcemaps-apply": "^0.2.0"
-  },
-  "bugs": {
-    "url": "https://github.com/A-312/gulp-terser-js/issues"
-  },
   "homepage": "https://github.com/A-312/gulp-terser-js#readme",
-  "directories": {
-    "test": "test"
+  "dependencies": {
+    "object-assign": "^4.1.1",
+    "plugin-error": "^1.0.1",
+    "terser": "^4.1.4",
+    "through2": "^3.0.1",
+    "vinyl-sourcemaps-apply": "^0.2.1"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "a-312"
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "coveralls": "3.0.5",
+    "eslint": "5.16.0",
+    "eslint-config-standard": "12.0.0",
+    "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-node": "8.0.1",
+    "eslint-plugin-promise": "4.1.1",
+    "eslint-plugin-standard": "4.0.0",
+    "mocha": "6.1.4",
+    "nyc": "14.1.1"
+  }
 }
