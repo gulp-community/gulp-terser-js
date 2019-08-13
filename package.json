@@ -2,7 +2,7 @@
   "name": "gulp-terser-js",
   "version": "4.1.1",
   "description": "A Terser-js plugin for Gulp",
-  "main": "index.js",
+  "main": "bin/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/A-312/gulp-terser-js.git"
