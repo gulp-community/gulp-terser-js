@@ -105,6 +105,6 @@ function printLESSError(error) {
 
 | Description    | gulp-terser-js |
 | -------------- | -------------- |
-| Node Version   | >= 8.0.0       |
+| Node Version   | >= 8.10.0      |
 | Terser Version | 4.1.4+         |
 | Gulp Version   | >= 4.X         |
