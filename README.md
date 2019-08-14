@@ -1,8 +1,20 @@
 # gulp-terser-js
 
-[![NPM Version](https://img.shields.io/npm/v/gulp-terser-js.svg)](https://www.npmjs.com/package/gulp-terser-js) [![Build Status](https://travis-ci.org/A-312/gulp-terser-js.svg?branch=master)](https://travis-ci.org/A-312/gulp-terser-js)
+  [![NPM Version][npm-image]][npm-url]
+  [![NPM Downloads][downloads-image]][downloads-url]
+  [![Linux Build][travis-image]][travis-url]
+  [![Test Coverage][coveralls-image]][coveralls-url]
 
 A [Terser-js](https://github.com/terser-js/) plugin for Gulp
+
+[npm-image]: https://img.shields.io/npm/v/gulp-terser-js.svg
+[npm-url]: https://npmjs.org/package/gulp-terser-js
+[downloads-image]: https://img.shields.io/npm/dm/gulp-terser-js.svg
+[downloads-url]: https://npmjs.org/package/gulp-terser-js
+[travis-image]: https://img.shields.io/travis/A-312/gulp-terser-js/master.svg?label=linux
+[travis-url]: https://travis-ci.org/A-312/gulp-terser-js
+[coveralls-image]: https://img.shields.io/coveralls/A-312/gulp-terser-js/master.svg
+[coveralls-url]: https://coveralls.io/r/A-312/gulp-terser-js?branch=master
 
 ## Why choose terser?
 
