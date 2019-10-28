@@ -5,7 +5,7 @@
   [![Linux Build][travis-image]][travis-url]
   [![Test Coverage][coveralls-image]][coveralls-url]
 
-A [Terser-js](https://github.com/terser-js/) plugin for Gulp
+A [Terser-js](https://github.com/terser/terser) plugin for Gulp
 
 [npm-image]: https://img.shields.io/npm/v/gulp-terser-js.svg
 [npm-url]: https://npmjs.org/package/gulp-terser-js
