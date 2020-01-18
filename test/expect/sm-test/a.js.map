@@ -1,0 +1,1 @@
+{"version":3,"sources":["fixtures/sm-test/a.js"],"names":["A","console","log"],"mappings":"AAAA,SAASA,IACPC,QAAQC,IAAI","file":"a.js","sourcesContent":["function A() {\n  console.log('A')\n}"]}

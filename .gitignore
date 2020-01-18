@@ -1,6 +1,5 @@
 node_modules/
 *.sublime-workspace
 *.sublime-project
-package-lock.json
 .nyc_output/
 .output/

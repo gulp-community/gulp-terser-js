@@ -1,13 +1,14 @@
 {
   "name": "gulp-terser-js",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "A Terser-js plugin for Gulp",
   "main": "bin/index.js",
   "scripts": {
     "lint": "eslint .",
     "test": "mocha --reporter spec --bail --check-leaks test/",
-    "test-ci": "mocha --reporter spec --check-leaks test/",
-    "coverage": "nyc mocha --reporter spec && nyc report --reporter=text-lcov | coveralls"
+    "bootstrap:ci": "npm ci",
+    "test:ci": "mocha --reporter spec --check-leaks test/",
+    "report-coverage:ci": "nyc mocha --reporter spec && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -28,22 +29,22 @@
   "license": "MIT",
   "homepage": "https://github.com/A-312/gulp-terser-js#readme",
   "dependencies": {
-    "object-assign": "^4.1.1",
-    "plugin-error": "^1.0.1",
-    "terser": "^4.1.4",
-    "through2": "^3.0.1",
-    "vinyl-sourcemaps-apply": "^0.2.1"
+    "plugin-error": "1.0.1",
+    "terser": "4.6.3",
+    "through2": "3.0.1",
+    "vinyl-sourcemaps-apply": "0.2.1"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "coveralls": "3.0.6",
-    "eslint": "6.1.0",
-    "eslint-config-standard": "13.0.1",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-node": "9.1.0",
+    "gulp": "4.0.2",
+    "coveralls": "3.0.9",
+    "eslint": "6.5.1",
+    "eslint-config-standard": "14.1.0",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-node": "11.0.0",
     "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-standard": "4.0.0",
-    "mocha": "6.2.0",
-    "nyc": "14.1.1"
+    "eslint-plugin-standard": "4.0.1",
+    "gulp-sourcemaps": "2.6.5",
+    "mocha": "6.2.2",
+    "nyc": "15.0.0"
   }
 }

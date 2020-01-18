@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.1.0] - 2020-01-18
+### Changed
+
+- Update dependencies version (Terser is now on 4.1.4) #13
+- Improve coverage to 100%. #9
+- Remove object-assign dependency
+
 ## [5.0.1] - 2019-11-13
 ### Changed
 
