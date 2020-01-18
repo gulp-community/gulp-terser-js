@@ -10,14 +10,6 @@ function gulpTerser(options) {
   const opts = assign({}, {}, options)
 
   return through2.obj(function(file, enc, next) {
-    if (file.isNull()) {
-      return next(null, file)
-    }
-
-    if (file.isStream()) {
-      return next(new PluginError('gulp-terser', 'Streaming not supported'))
-    }
-
     const str = file.contents.toString()
     let build = {}
 
