@@ -32,7 +32,7 @@ function gulpTerser(options) {
       return next(printError(new PluginError('gulp-terser', res.error)))
     }
 
-    file.contents = new (Buffer.from || Buffer)(res.code) // eslint-disable-line node/no-deprecated-api
+    file.contents = new Buffer.from(res.code) // eslint-disable-line new-cap
 
     if (file.sourceMap && res.map) {
       applySourceMap(file, res.map)
