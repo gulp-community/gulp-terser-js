@@ -1,6 +1,6 @@
 {
   "name": "gulp-terser-js",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "A Terser-js plugin for Gulp",
   "main": "bin/index.js",
   "scripts": {
@@ -13,6 +13,9 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/A-312/gulp-terser-js.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "files": [
     "bin/",
