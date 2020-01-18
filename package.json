@@ -6,8 +6,9 @@
   "scripts": {
     "lint": "eslint .",
     "test": "mocha --reporter spec --bail --check-leaks test/",
-    "test-ci": "mocha --reporter spec --check-leaks test/",
-    "coverage": "nyc mocha --reporter spec && nyc report --reporter=text-lcov | coveralls"
+    "bootstrap:ci": "npm ci",
+    "test:ci": "mocha --reporter spec --check-leaks test/",
+    "report-coverage:ci": "nyc mocha --reporter spec && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
