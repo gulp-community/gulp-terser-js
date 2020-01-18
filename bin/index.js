@@ -1,5 +1,4 @@
 const through2 = require('through2')
-const assign = require('object-assign')
 const PluginError = require('plugin-error')
 const applySourceMap = require('vinyl-sourcemaps-apply')
 
@@ -7,7 +6,7 @@ const terser = require('terser')
 
 function gulpTerser(options) {
   // Mixes in default options.
-  const opts = assign({}, {}, options)
+  const opts = Object.assign({}, {}, options)
 
   return through2.obj(function(file, enc, next) {
     const str = file.contents.toString()

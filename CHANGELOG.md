@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Update dependencies version (Terser is now on 4.1.4) #13
 - Improve coverage to 100%. #9
+- Remove object-assign dependency
 
 ## [5.0.1] - 2019-11-13
 ### Changed
