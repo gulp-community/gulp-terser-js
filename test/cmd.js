@@ -6,6 +6,8 @@ const fs = require('fs')
 const gulp = require('gulp')
 const terser = require('../')
 
+const sourcemaps = require('gulp-sourcemaps')
+
 const srcOptions = {
   cwd: path.resolve(__dirname),
   base: path.resolve(__dirname)
@@ -55,8 +57,6 @@ describe('gulp-terser-js(1)', function() {
 
 
       it('should run terser with sourcemaps', function(done) {
-        const sourcemaps = require('gulp-sourcemaps')
-
         const sourceMapOpt = {
           sourceMappingURL: (file) => {
             const filepath = file.relative.replace(new RegExp('\\' + path.sep, 'g'), '/') // replace windows separator
@@ -104,7 +104,7 @@ describe('gulp-terser-js(1)', function() {
       })
 
 
-      it('should catch error', function(done) {
+      function catchError(src, expectedJson, done) {
         const logfn = console.log
         const logstore = []
 
@@ -114,7 +114,7 @@ describe('gulp-terser-js(1)', function() {
           logstore.push([].join.call(arguments, ','))
         }
 
-        const stream = gulp.src('fixtures/script-with-error.js', srcOptions)
+        const stream = gulp.src(src, srcOptions)
           .pipe(terser({
             mangle: {
               toplevel: true
@@ -128,14 +128,70 @@ describe('gulp-terser-js(1)', function() {
 
         stream.on('end', function() {
           assert.strictEqual(error.message, 'Unexpected token: operator (&&)', 'is the expected error')
-          const expect = JSON.parse(get('expect/script-with-error.json'))
+          const expect = JSON.parse(get(expectedJson))
           // if you want check the current log use :
           // console.log(JSON.stringify(logstore, 0, 4))
           // console.log(JSON.stringify(expect, 0, 4))
-          assert.strictEqual(logstore.slice(0, -1).join(''), expect.join(''), 'is the expected error')
+          assert.strictEqual(logstore.slice(0, -1).join('\n'), expect.join('\n'), 'is the expected error')
           done()
         })
+      }
+
+
+      it('should catch error', function(done) {
+        catchError('fixtures/script-with-error.js', 'expect/script-with-error.json', done)
       })
+
+
+      it('should catch error with array files list', function(done) {
+        const src = [
+          'fixtures/to-be-one/*.js',
+          'fixtures/script-with-error.js'
+        ];
+        catchError(src, 'expect/script-with-error.json', done)
+      })
+
+
+      function catchErrorWithSourceMaps(src, expectedJson, done) {
+        const logfn = console.log
+        const logstore = []
+
+        let error = null
+
+        console.log = function() {
+          logstore.push([].join.call(arguments, ','))
+        }
+
+        const stream = gulp.src(src, srcOptions)
+          .pipe(sourcemaps.init())
+          .pipe(terser({
+            mangle: {
+              toplevel: true
+            }
+          })).on('error', function(err) {
+            console.log = logfn
+            error = err
+            this.emit('end')
+          })
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest(outputFolder))
+
+        stream.on('end', function() {
+          assert.strictEqual(error.message, 'Unexpected token: operator (&&)', 'is the expected error')
+          const expect = JSON.parse(get(expectedJson))
+          // if you want check the current log use :
+          // console.log(JSON.stringify(logstore, 0, 4))
+          // console.log(JSON.stringify(expect, 0, 4))
+          assert.strictEqual(logstore.slice(0, -1).join('\n'), expect.join('\n'), 'is the expected error')
+          done()
+        })
+      }
+
+
+      it('should catch error with sourcemaps', function(done) {
+        catchErrorWithSourceMaps('fixtures/script-with-error-in-long-line.js', 'expect/script-with-error-in-long-line.json', done)
+      })
+
 
       it('test print error function', function() {
         let error
@@ -143,6 +199,10 @@ describe('gulp-terser-js(1)', function() {
         terser.printError("'----o----'")
 
         assert.strictEqual(error, "'----o----'")
+
+        terser.printError({ fileContent: 'return;' })
+
+        assert.strictEqual(error.toString(), '[object Object]')
       })
     })
   })
