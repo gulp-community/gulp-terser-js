@@ -83,11 +83,13 @@ describe('gulp-terser-js(1)', function() {
 
 
       it('should have the expected result', function() {
+        const EOL = (str) => str.replace(/\r/g, '')
+
         const result = {
           a: get('.output/fixtures/sm-test/a.js'),
           b: get('.output/fixtures/sm-test/b.js'),
-          amap: get('.output/fixtures/sm-test/a.js.map'),
-          bmap: get('.output/fixtures/sm-test/b.js.map')
+          amap: get('.output/fixtures/sm-test/a.js.map').replace(/\\r\\n/g, '\\n'),
+          bmap: get('.output/fixtures/sm-test/b.js.map').replace(/\\r\\n/g, '\\n')
         }
 
         const expect = {
@@ -97,10 +99,10 @@ describe('gulp-terser-js(1)', function() {
           bmap: get('expect/sm-test/b.js.map')
         }
 
-        assert.strictEqual(result.a, expect.a, 'should be the same output with a.js')
-        assert.strictEqual(result.b, expect.b, 'should be the same output with b.js')
-        assert.strictEqual(result.amap, expect.amap, 'should be the same output with a.js')
-        assert.strictEqual(result.bmap, expect.bmap, 'should be the same output with b.js')
+        assert.strictEqual(EOL(result.a), EOL(expect.a), 'should be the same output with a.js')
+        assert.strictEqual(EOL(result.b), EOL(expect.b), 'should be the same output with b.js')
+        assert.strictEqual(EOL(result.amap), EOL(expect.amap), 'should be the same output with a.js')
+        assert.strictEqual(EOL(result.bmap), EOL(expect.bmap), 'should be the same output with b.js')
       })
 
 
@@ -147,7 +149,7 @@ describe('gulp-terser-js(1)', function() {
         const src = [
           'fixtures/to-be-one/*.js',
           'fixtures/script-with-error.js'
-        ];
+        ]
         catchError(src, 'expect/script-with-error.json', done)
       })
 
