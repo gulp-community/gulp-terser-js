@@ -48,6 +48,9 @@ const minifyJS = () =>
          toplevel: true
        }
     }))
+    .on('error', function (error) {
+      this.emit('end')
+    })
     .pipe(gulp.dest('public/js/'))
 
 
@@ -61,10 +64,10 @@ The options you can use [can be found here](https://github.com/terser-js/terser#
 ## Avanced Usage
 
 ```js
-const gulp = require('gulp'),
-  concat = require('gulp-concat'),
-  sourcemaps = require('gulp-sourcemaps'),
-  terser = require('gulp-terser-js')
+const gulp = require('gulp')
+const concat = require('gulp-concat')
+const sourcemaps = require('gulp-sourcemaps')
+const terser = require('gulp-terser-js')
 
 const sourceMapOpt = {
   sourceMappingURL: (file) => 'http://127.0.0.1/map/' + file.relative + '.map'
@@ -80,7 +83,11 @@ const minifyJS = () =>
       mangle: {
         toplevel: true
       }
-    })).on('error', function () {
+    }))
+    .on('error', function (error) {
+      if (error.plugin !== "gulp-terser-js") {
+        console.log(error.message)
+      }
       this.emit('end')
     })
     .pipe(sourcemaps.write(mapsFolder, sourceMapOpt))
@@ -92,6 +99,9 @@ gulp.task('minifyJS', minifyJS)
 ## Can I use terser to format error of an other gulp module ?
 
 ```js
+// ... 
+const less = require('gulp-less');
+
 const generateCSS = () =>  
   gulp.src("./asset/css/*.less", srcOptions)
     .pipe(less()).on("error", printLESSError)
@@ -100,15 +110,19 @@ const generateCSS = () =>
     .pipe(gulp.dest(outputBuildFolder))
 
 function printLESSError(error) {
-	terser.printError.call(this, {
-		name: error.type,
-		line: error.line,
-		col: error.column,
-		filePath: error.filename,
-		fileContent: '' + fs.readFileSync(error.filename),
-		message: (error.message || '').replace(error.filename, path.basename(error.filename)).split(' in file')[0],
-		plugin: error.plugin
-	})
+  if (error.plugin === "gulp-less") {
+    terser.printError.call(this, {
+      name: error.type,
+      line: error.line,
+      col: error.column,
+      filePath: error.filename,
+      fileContent: '' + fs.readFileSync(error.filename),
+      message: (error.message || '').replace(error.filename, path.basename(error.filename)).split(' in file')[0],
+      plugin: error.plugin
+    })
+  } else {
+    console.log(error.message);
+  }
   this.emit('end')
 }
 ```
