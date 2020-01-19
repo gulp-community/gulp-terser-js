@@ -12,7 +12,6 @@ function gulpTerser(options) {
     const str = file.contents.toString()
     let build = {}
 
-    // Bootstrap source maps
     if (file.sourceMap) {
       opts.sourceMap = {}
       opts.sourceMap.filename = file.sourceMap.file

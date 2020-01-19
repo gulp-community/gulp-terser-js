@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [5.1.2] - 2020-01-19
+### Changed
+
+- Change plugin name send with an error. #16
+- Fix forgotten argument with an error (allow to continue the gulp script).
+
+
 ## [5.1.1] - 2020-01-18
 ### Changed
 
