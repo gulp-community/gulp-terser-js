@@ -1,5 +1,5 @@
 [
-  "\nError with gulp-terser :",
+  "\nError with gulp-terser-js :",
   "\u001b[36m1 |\u001b[00m function main() {",
   "\u001b[36m2 |\u001b[00m   &&&&&&&&&();",
   "      \u001b[91m^\u001b[00m",
