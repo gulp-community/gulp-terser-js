@@ -29,7 +29,7 @@ function gulpTerser(options) {
       res.error.filePath = file.path
       res.error.fileContent = (typeof build === 'string') ? build : build[res.error.filename]
 
-      return next(printError(new PluginError('gulp-terser', res.error)))
+      return next(printError(new PluginError('gulp-terser', res.error)), file)
     }
 
     file.contents = new Buffer.from(res.code) // eslint-disable-line new-cap
