@@ -15,6 +15,7 @@ function gulpTerser(options) {
     if (file.sourceMap) {
       opts.sourceMap = {}
       opts.sourceMap.filename = file.sourceMap.file
+      opts.sourceMap.content = file.sourceMap
     }
 
     if (file.sourceMap && file.sourceMap.file) {
