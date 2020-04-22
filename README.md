@@ -96,6 +96,13 @@ const minifyJS = () =>
 gulp.task('minifyJS', minifyJS)
 ```
 
+### Source maps
+
+Terser is automatically configured to support source maps without any additional configuration.
+If the input file has source maps enabled, the Terser `sourceMap` option will be reset and filled with the necessary information.
+This includes the `filename` option, which is set to the previous source map file name, as well as the `content` option, which is set to the incoming source map.
+Terser gets passed these two options, and the resulting source map gets applied to the file.
+
 ## Can I use terser to format error of an other gulp module ?
 
 ```js
