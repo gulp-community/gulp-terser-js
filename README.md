@@ -98,10 +98,22 @@ gulp.task('minifyJS', minifyJS)
 
 ### Source maps
 
-Terser is automatically configured to support source maps without any additional configuration.
-If the input file has source maps enabled, the Terser `sourceMap` option will be reset and filled with the necessary information.
-This includes the `filename` option, which is set to the previous source map file name, as well as the `content` option, which is set to the incoming source map.
-Terser gets passed these two options, and the resulting source map gets applied to the file.
+When running Terser on compiled Javascript, you may run into issues with source maps.
+If you need to pass the content of your source maps to Terser, first you must set the `loadMaps` option to `true` when initializing `gulp-sourcemaps`.
+Next, make the `content` source map option `true` when piping Terser.
+
+A basic setup may look like this:
+```js
+gulp.src('asset/js/*.js')
+  .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(terser({
+     sourceMap: {
+       content: true
+     }
+  }))
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('dist'))
+```
 
 ## Can I use terser to format error of an other gulp module ?
 

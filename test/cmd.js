@@ -64,20 +64,34 @@ describe('gulp-terser-js(1)', function() {
           }
         }
 
-        const stream = gulp.src('fixtures/sm-test/*.js', srcOptions)
-          .pipe(sourcemaps.init())
-          .pipe(terser({
-            mangle: {
-              toplevel: true
-            }
-          })).on('error', function(err) {
-            done(err)
-          })
-          .pipe(sourcemaps.write('./', sourceMapOpt))
-          .pipe(gulp.dest(outputFolder))
+        const streamGenerator = (glob, content) => {
+          const sourceMap = { sourceMap: {} }
+          if (content) {
+            sourceMap.sourceMap.content = true
+          }
+
+          return gulp.src(glob, srcOptions)
+            .pipe(sourcemaps.init({ loadMaps: true }))
+            .pipe(terser({
+              mangle: {
+                toplevel: true
+              },
+              ...sourceMap
+            })).on('error', function(err) {
+              done(err)
+            })
+            .pipe(sourcemaps.write('./', sourceMapOpt))
+            .pipe(gulp.dest(outputFolder))
+        }
+
+        let stream = streamGenerator('fixtures/sm-test/{a,b}.js', false)
 
         stream.on('end', function() {
-          done()
+          stream = streamGenerator('fixtures/sm-test/c.js', true)
+
+          stream.on('end', function() {
+            done()
+          })
         })
       })
 
@@ -88,21 +102,27 @@ describe('gulp-terser-js(1)', function() {
         const result = {
           a: get('.output/fixtures/sm-test/a.js'),
           b: get('.output/fixtures/sm-test/b.js'),
+          c: get('.output/fixtures/sm-test/c.js'),
           amap: get('.output/fixtures/sm-test/a.js.map').replace(/\\r\\n/g, '\\n'),
-          bmap: get('.output/fixtures/sm-test/b.js.map').replace(/\\r\\n/g, '\\n')
+          bmap: get('.output/fixtures/sm-test/b.js.map').replace(/\\r\\n/g, '\\n'),
+          cmap: get('.output/fixtures/sm-test/c.js.map').replace(/\\r\\n/g, '\\n')
         }
 
         const expect = {
           a: get('expect/sm-test/a.js'),
           b: get('expect/sm-test/b.js'),
+          c: get('expect/sm-test/c.js'),
           amap: get('expect/sm-test/a.js.map'),
-          bmap: get('expect/sm-test/b.js.map')
+          bmap: get('expect/sm-test/b.js.map'),
+          cmap: get('expect/sm-test/c.js.map')
         }
 
         assert.strictEqual(EOL(result.a), EOL(expect.a), 'should be the same output with a.js')
         assert.strictEqual(EOL(result.b), EOL(expect.b), 'should be the same output with b.js')
+        assert.strictEqual(EOL(result.c), EOL(expect.c), 'should be the same output with c.js')
         assert.strictEqual(EOL(result.amap), EOL(expect.amap), 'should be the same output with a.js')
         assert.strictEqual(EOL(result.bmap), EOL(expect.bmap), 'should be the same output with b.js')
+        assert.strictEqual(EOL(result.cmap), EOL(expect.cmap), 'should be the same output with c.js')
       })
 
 
