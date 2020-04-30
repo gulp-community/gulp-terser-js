@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [5.2.1] - 2020-04-30
+### Fixed
+
+- Error display original position
+
+
 ## [5.2.0] - 2020-04-30
 ### Changed
 
@@ -36,7 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [5.0.1] - 2019-11-13
-### Changed
+### Fixed
 
 - Fix bug with mixed EOL on Windows for printError #12
 
@@ -49,7 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [4.1.1] - 2019-08-13
-### Fix
+### Fixed
 
 - Fix printError and improve readme(caused by #3) #5 
 

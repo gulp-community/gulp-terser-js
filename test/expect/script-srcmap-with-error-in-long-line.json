@@ -3,5 +3,6 @@
   "\u001b[36m1 |\u001b[00m function main() {",
   "\u001b[36m2 |\u001b[00m   \"very long line, very long line, very long line, very long line, very long line, very long line, very long line, very long line, very long line, \" + &&&&&",
   "                                                                                                                                                           \u001b[91m^\u001b[00m",
-  "(SyntaxError) Unexpected token: operator (&&) (line : \u001b[96m2\u001b[00m, col : \u001b[96m152\u001b[00m)."
+  "(SyntaxError) Unexpected token: operator (&&) (line : \u001b[96m2\u001b[00m, col : \u001b[96m152\u001b[00m).",
+  "in : xxx/fixtures/script-srcmap-with-error-in-long-line.js\n"
 ]
