@@ -1,0 +1,11 @@
+[
+  "\nError with gulp-terser-js :",
+  "\u001b[36m4 |\u001b[00m function B() {",
+  "\u001b[36m5 |\u001b[00m   console.log('B')",
+  "\u001b[36m6 |\u001b[00m };",
+  "\u001b[36m7 |\u001b[00m function main() {",
+  "\u001b[36m8 |\u001b[00m   &&&&&&&&&();",
+  "      \u001b[91m^\u001b[00m",
+  "(SyntaxError) Unexpected token: operator (&&) (line : \u001b[96m8\u001b[00m, col : \u001b[96m3\u001b[00m).",
+  "in : xxx/script.js\n"
+]

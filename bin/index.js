@@ -1,3 +1,7 @@
+const fs = require('fs')
+const path = require('path')
+
+const sourceMap = require('source-map')
 const through2 = require('through2')
 const PluginError = require('plugin-error')
 const applySourceMap = require('vinyl-sourcemaps-apply')
@@ -8,7 +12,7 @@ function gulpTerser(options) {
   // Mixes in default options.
   const opts = Object.assign({}, {}, options)
 
-  return through2.obj(function(file, enc, next) {
+  return through2.obj(async function(file, enc, next) {
     const str = file.contents.toString()
     let build = {}
 
@@ -34,6 +38,26 @@ function gulpTerser(options) {
     const res = terser.minify(build, opts)
 
     if (res.error) {
+      if (file.sourceMap) {
+        const consumer = await new sourceMap.SourceMapConsumer(file.sourceMap)
+        const original = consumer.originalPositionFor({
+          source: file.path,
+          line: res.error.line,
+          column: res.error.col
+        })
+
+        if (original.line !== null) {
+          const error = new Error(res.error.message, path.basename(original.source))
+
+          error.name = res.error.name
+          error.line = original.line
+          error.col = original.column || res.error.col
+          error.filePath = path.resolve(file.cwd, original.source)
+          error.fileContent = fs.readFileSync(error.filePath).toString()
+
+          return next(printError(new PluginError('gulp-terser-js', error)), file)
+        }
+      }
       res.error.filePath = file.path
       res.error.fileContent = (typeof build === 'string') ? build : build[res.error.filename]
 

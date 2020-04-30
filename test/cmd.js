@@ -1,9 +1,10 @@
 const assert = require('assert')
-
 const path = require('path')
 const fs = require('fs')
 
 const gulp = require('gulp')
+const gulpif = require('gulp-if')
+const concat = require('gulp-concat')
 const terser = require('../')
 
 const sourcemaps = require('gulp-sourcemaps')
@@ -84,10 +85,10 @@ describe('gulp-terser-js(1)', function() {
             .pipe(gulp.dest(outputFolder))
         }
 
-        let stream = streamGenerator('fixtures/sm-test/{a,b}.js', false)
+        let stream = streamGenerator('fixtures/sourcemap-test/{a,b}.js', false)
 
         stream.on('end', function() {
-          stream = streamGenerator('fixtures/sm-test/c.js', true)
+          stream = streamGenerator('fixtures/sourcemap-test/c.js', true)
 
           stream.on('end', function() {
             done()
@@ -100,21 +101,21 @@ describe('gulp-terser-js(1)', function() {
         const EOL = (str) => str.replace(/\r/g, '')
 
         const result = {
-          a: get('.output/fixtures/sm-test/a.js'),
-          b: get('.output/fixtures/sm-test/b.js'),
-          c: get('.output/fixtures/sm-test/c.js'),
-          amap: get('.output/fixtures/sm-test/a.js.map').replace(/\\r\\n/g, '\\n'),
-          bmap: get('.output/fixtures/sm-test/b.js.map').replace(/\\r\\n/g, '\\n'),
-          cmap: get('.output/fixtures/sm-test/c.js.map').replace(/\\r\\n/g, '\\n')
+          a: get('.output/fixtures/sourcemap-test/a.js'),
+          b: get('.output/fixtures/sourcemap-test/b.js'),
+          c: get('.output/fixtures/sourcemap-test/c.js'),
+          amap: get('.output/fixtures/sourcemap-test/a.js.map').replace(/\\r\\n/g, '\\n'),
+          bmap: get('.output/fixtures/sourcemap-test/b.js.map').replace(/\\r\\n/g, '\\n'),
+          cmap: get('.output/fixtures/sourcemap-test/c.js.map').replace(/\\r\\n/g, '\\n')
         }
 
         const expect = {
-          a: get('expect/sm-test/a.js'),
-          b: get('expect/sm-test/b.js'),
-          c: get('expect/sm-test/c.js'),
-          amap: get('expect/sm-test/a.js.map'),
-          bmap: get('expect/sm-test/b.js.map'),
-          cmap: get('expect/sm-test/c.js.map')
+          a: get('expect/sourcemap-test/a.js'),
+          b: get('expect/sourcemap-test/b.js'),
+          c: get('expect/sourcemap-test/c.js'),
+          amap: get('expect/sourcemap-test/a.js.map'),
+          bmap: get('expect/sourcemap-test/b.js.map'),
+          cmap: get('expect/sourcemap-test/c.js.map')
         }
 
         assert.strictEqual(EOL(result.a), EOL(expect.a), 'should be the same output with a.js')
@@ -126,7 +127,7 @@ describe('gulp-terser-js(1)', function() {
       })
 
 
-      function catchError(src, expectedJson, done) {
+      function catchError(src, concated, expectedJson, done) {
         const logfn = console.log
         const logstore = []
 
@@ -137,6 +138,7 @@ describe('gulp-terser-js(1)', function() {
         }
 
         const stream = gulp.src(src, srcOptions)
+          .pipe(gulpif(concated, concat('script.js', { newLine: ';\r\n' })))
           .pipe(terser({
             mangle: {
               toplevel: true
@@ -151,17 +153,19 @@ describe('gulp-terser-js(1)', function() {
         stream.on('end', function() {
           assert.strictEqual(error.message, 'Unexpected token: operator (&&)', 'is the expected error')
           const expect = JSON.parse(get(expectedJson))
+          const last = logstore.length - 1
+          logstore[last] = logstore[last].replace(__dirname, 'xxx').replace(/\\/g, '/')
           // if you want check the current log use :
           // console.log(JSON.stringify(logstore, 0, 4))
           // console.log(JSON.stringify(expect, 0, 4))
-          assert.strictEqual(logstore.slice(0, -1).join('\n'), expect.join('\n'), 'is the expected error')
+          assert.strictEqual(logstore.join('\n'), expect.join('\n'), 'is the expected error')
           done()
         })
       }
 
 
       it('should catch error', function(done) {
-        catchError('fixtures/script-with-error.js', 'expect/script-with-error.json', done)
+        catchError('fixtures/script-with-error.js', false, 'expect/script-with-error.json', done)
       })
 
 
@@ -170,11 +174,20 @@ describe('gulp-terser-js(1)', function() {
           'fixtures/to-be-one/*.js',
           'fixtures/script-with-error.js'
         ]
-        catchError(src, 'expect/script-with-error.json', done)
+        catchError(src, false, 'expect/script-with-error.json', done)
       })
 
 
-      function catchErrorWithSourceMaps(src, expectedJson, done) {
+      it('should catch error and not be able to get the origin position with no sourcemaps', function(done) {
+        const src = [
+          'fixtures/to-be-one/*.js',
+          'fixtures/script-with-error.js'
+        ]
+        catchError(src, true, 'expect/script-contacted-with-error.json', done)
+      })
+
+
+      function catchErrorWithSrcMap(src, concated, expectedJson, done) {
         const logfn = console.log
         const logstore = []
 
@@ -186,6 +199,7 @@ describe('gulp-terser-js(1)', function() {
 
         const stream = gulp.src(src, srcOptions)
           .pipe(sourcemaps.init())
+          .pipe(gulpif(concated, concat('script.js', { newLine: ';\r\n' })))
           .pipe(terser({
             mangle: {
               toplevel: true
@@ -199,19 +213,32 @@ describe('gulp-terser-js(1)', function() {
           .pipe(gulp.dest(outputFolder))
 
         stream.on('end', function() {
+          assert.notStrictEqual(error, null, 'Error expected but error is null')
           assert.strictEqual(error.message, 'Unexpected token: operator (&&)', 'is the expected error')
           const expect = JSON.parse(get(expectedJson))
+          const last = logstore.length - 1
+          logstore[last] = logstore[last].replace(__dirname, 'xxx').replace(/\\/g, '/')
           // if you want check the current log use :
           // console.log(JSON.stringify(logstore, 0, 4))
           // console.log(JSON.stringify(expect, 0, 4))
-          assert.strictEqual(logstore.slice(0, -1).join('\n'), expect.join('\n'), 'is the expected error')
+          assert.strictEqual(logstore.join('\n'), expect.join('\n'), 'is the expected error')
           done()
         })
       }
 
 
       it('should catch error with sourcemaps', function(done) {
-        catchErrorWithSourceMaps('fixtures/script-with-error-in-long-line.js', 'expect/script-with-error-in-long-line.json', done)
+        catchErrorWithSrcMap('fixtures/script-srcmap-with-error-in-long-line.js', false, 'expect/script-srcmap-with-error-in-long-line.json', done)
+      })
+
+
+      it('should catch error with sourcemaps and should get the origin position', function(done) {
+        const src = [
+          'fixtures/to-be-one/*.js',
+          'fixtures/script-with-error.js'
+        ]
+
+        catchErrorWithSrcMap(src, true, 'expect/script-contacted-srcmap-with-error.json', done)
       })
 
 
