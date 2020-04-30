@@ -13,8 +13,17 @@ function gulpTerser(options) {
     let build = {}
 
     if (file.sourceMap) {
-      opts.sourceMap = {}
-      opts.sourceMap.filename = file.sourceMap.file
+      if (!('sourceMap' in opts)) {
+        opts.sourceMap = {}
+      }
+
+      if (!('filename' in opts.sourceMap)) {
+        opts.sourceMap.filename = file.sourceMap.file
+      }
+
+      if ('content' in opts.sourceMap && typeof opts.sourceMap.content === 'boolean' && opts.sourceMap.content === true) {
+        opts.sourceMap.content = file.sourceMap
+      }
     }
 
     if (file.sourceMap && file.sourceMap.file) {
