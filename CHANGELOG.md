@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [5.2.2] - 2020-04-30
+### Changed
+
+- Transfert repo from A-312/gulp-terser-js to gulp-community/gulp-terser-js
+- Update README.md
+
+
 ## [5.2.1] - 2020-04-30
 ### Fixed
 
