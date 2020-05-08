@@ -11,10 +11,10 @@ A [Terser-js](https://github.com/terser/terser) plugin for Gulp
 [npm-url]: https://npmjs.org/package/gulp-terser-js
 [downloads-image]: https://img.shields.io/npm/dm/gulp-terser-js.svg
 [downloads-url]: https://npmjs.org/package/gulp-terser-js
-[travis-image]: https://img.shields.io/travis/A-312/gulp-terser-js/master.svg?label=linux
-[travis-url]: https://travis-ci.org/A-312/gulp-terser-js
-[coveralls-image]: https://img.shields.io/coveralls/A-312/gulp-terser-js/master.svg
-[coveralls-url]: https://coveralls.io/r/A-312/gulp-terser-js?branch=master
+[travis-image]: https://img.shields.io/travis/com/gulp-community/gulp-terser-js/master.svg?label=linux
+[travis-url]: https://travis-ci.com/gulp-community/gulp-terser-js
+[coveralls-image]: https://img.shields.io/coveralls/gulp-community/gulp-terser-js/master.svg
+[coveralls-url]: https://coveralls.io/r/gulp-community/gulp-terser-js?branch=master
 
 ## Why choose terser?
 
