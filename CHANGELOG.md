@@ -76,6 +76,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Add printError #3
 
+[5.2.2]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
+[5.2.1]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
+[5.2.0]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
+[5.1.2]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
+[5.1.1]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
+[5.1.0]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
+[5.0.1]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
 [5.0.0]: https://github.com/A-312/gulp-terser-js/releases/tag/5.0.0
 [4.1.1]: https://github.com/A-312/gulp-terser-js/releases/tag/4.1.1
 [4.1.0]: https://github.com/A-312/gulp-terser-js/releases/tag/4.1.0
