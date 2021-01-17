@@ -35,7 +35,7 @@ function gulpTerser(options) {
     } else {
       build = str
     }
-    const res = terser.minify(build, opts)
+    const res = await terser.minify(build, opts)
 
     if (res.error) {
       if (file.sourceMap) {
