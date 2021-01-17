@@ -31,7 +31,7 @@
   "dependencies": {
     "plugin-error": "^1.0.1",
     "source-map": "^0.7.3",
-    "terser": "^4.6.12",
+    "terser": "^5.5.1",
     "through2": "^3.0.1",
     "vinyl-sourcemaps-apply": "^0.2.1"
   },
