@@ -47,7 +47,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-if": "^3.0.0",
     "gulp-sourcemaps": "2.6.5",
-    "mocha": "7.1.2",
+    "mocha": "10.2.0",
     "nyc": "15.0.1"
   }
 }
